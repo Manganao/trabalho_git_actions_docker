@@ -7,6 +7,8 @@ RUN pip install --no-cache-dir -r requirements.txt
 
 COPY app.py .
 
+ARG APP_VERSION=dev
+ENV APP_VERSION=$APP_VERSION
 ENV PORT=8080
 EXPOSE 8080
 
