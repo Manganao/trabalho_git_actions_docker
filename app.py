@@ -5,7 +5,7 @@ import socket
 
 app = Flask(__name__)
 
-APP_VERSION = os.environ.get("APP_VERSION", "1.0.2")
+APP_VERSION = os.environ.get("APP_VERSION", "1.0.0")
 AUTOR = "Gabriel Bielick"
 
 
