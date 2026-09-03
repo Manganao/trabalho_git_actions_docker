@@ -10,7 +10,8 @@ def home():
     return jsonify({
         "mensagem": "Ola, este e o app do trabalho de CI/CD!, do professor mestre dos magos",
         "host": socket.gethostname(),
-        "versao": os.environ.get("APP_VERSION", "1.0.0")
+        "versao": os.environ.get("APP_VERSION", "1.0.
+        0")
     })
 
 
