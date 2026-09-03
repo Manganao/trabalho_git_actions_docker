@@ -1,11 +1,28 @@
-name: Deploy to AWS EC2
+name: Test and Deploy to AWS EC2
 
 on:
   push:
     branches: [ "main" ]
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Build Docker image
+        run: docker build -t trabalho-app-test .
+
+      - name: Run container and check health
+        run: |
+          docker run -d --name test-container -p 8080:8080 trabalho-app-test
+          sleep 5
+          curl --fail http://localhost:8080/ || (docker logs test-container && exit 1)
+          docker stop test-container
+
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy via SSH (git pull + docker rebuild)
