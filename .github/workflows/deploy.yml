@@ -1,9 +1,7 @@
 name: Test and Deploy to AWS EC2
-
 on:
   push:
     branches: [ "main" ]
-
 jobs:
   test:
     runs-on: ubuntu-latest
@@ -11,16 +9,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Run unit tests
+        run: pytest -v
+
       - name: Build Docker image
         run: docker build --build-arg APP_VERSION=1.0.${{ github.run_number }} -t trabalho-app-test .
-
       - name: Run container and check health
         run: |
           docker run -d --name test-container -p 8080:8080 trabalho-app-test
           sleep 5
           curl --fail http://localhost:8080/ || (docker logs test-container && exit 1)
           docker stop test-container
-
   deploy:
     needs: test
     runs-on: ubuntu-latest
