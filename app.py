@@ -13,7 +13,7 @@ AUTOR = "Gabriel Bielick"
 def home():
     """Rota principal — mensagem de boas-vindas do app."""
     return jsonify({
-        "mensagem": "Olá, este é o app do trabalho de CI/CD!, Marcos Jesus de Oliveira Nielsen, vulgo Professor Mestre dos Magos",
+        "mensagem": "Olá, este é o app do trabalho de CI/CD!, Marcos Nielsen, vulgo Professor Mestre dos Magos",
         "autor": AUTOR,
         "host": socket.gethostname(),
         "versao": APP_VERSION,
